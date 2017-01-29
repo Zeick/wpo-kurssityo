@@ -17,10 +17,29 @@
 </p> -->
 
 <p>
+  <% all_ratings = 0 %>
   <% @brewery.beers.each do |beer| %>
-    <%= link_to beer.name, beer %>
+    <%= link_to beer.name, beer %><!--, has <%= beer.ratings.count %> ratings: -->
+    <% all_ratings += beer.ratings.count %>
+    <% if beer.ratings.empty? %>
+      
+    <% else %>
+      <% beer.ratings.each do |rat| %>
+<!--        <%= rat.score %>, -->
+      <% end %>
+    <% end %>
+    <br>
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_brewery_path(@brewery) %> |
-<%= link_to 'Back', breweries_path %>
+<p>
+  Has <%= pluralize(all_ratings,'rating') %>.
+  <% if all_ratings == 0%>
+
+  <% else %>
+    Average <%= @brewery.average_rating %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_brewery_path(@brewery) %> <!--|
+<%= link_to 'Back', breweries_path %> -->
