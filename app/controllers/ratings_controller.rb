@@ -7,13 +7,20 @@ class RatingsController < ApplicationController
     @beers = Beer.all
   end
   def create
-    Rating.create params.require(:rating).permit(:score, :beer_id)
-    redirect_to ratings_path
-#    redirect_to "http://www.cs.helsinki.fi"
+    @rating = Rating.new params.require(:rating).permit(:score, :beer_id)
+    @rating[:user_id] = current_user.id
+    if @rating.save
+      current_user.ratings << @rating
+      redirect_to user_path current_user
+    else
+      @beers = Beer.all
+      render :new
+    end
   end
+
   def destroy
     rating = Rating.find(params[:id])
-    rating.delete
-    redirect_to ratings_path
+    rating.delete if current_user == rating.user # Poistetaan vain jos poistaja on sama kuin arvostelija
+    redirect_to :back
   end
 end

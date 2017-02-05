@@ -37,7 +37,7 @@
   <% if all_ratings == 0%>
 
   <% else %>
-    Average <%= @brewery.average_rating %>
+    Average <%= @brewery.average_rating.round(2) %>
   <% end %>
 </p>
 
