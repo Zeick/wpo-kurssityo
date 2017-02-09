@@ -24,15 +24,19 @@ class MembershipsController < ApplicationController
 
   # POST /memberships
   # POST /memberships.json
-  def create
-    @membership = Membership.new params.require(:membership).permit(:beer_club_id)
-    @membership[:user_id] = current_user.id
-    if @membership.save
-      current_user.memberships << @membership
-      redirect_to user_path current_user
-    else
-      @beer_clubs = BeerClub.all
-      render :new
+def create
+    @membership = Membership.new(membership_params)
+    @membership.user = current_user
+
+    respond_to do |format|
+      if not current_user.beer_clubs.include?  @membership.beer_club and @membership.save
+        format.html { redirect_to @membership.user, notice: "You have joined #{@membership.beer_club.name}" }
+        format.json { render :show, status: :created, location: @membership }
+      else
+        @beer_clubs = BeerClub.all - current_user.beer_clubs 
+        format.html { render :new }
+        format.json { render json: @membership.errors, status: :unprocessable_entity }
+      end
     end
   end
 
