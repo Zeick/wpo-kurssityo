@@ -4,6 +4,7 @@ class Beer < ActiveRecord::Base
   has_many :ratings, dependent: :destroy
   has_many :raters, -> { uniq }, through: :ratings, source: :user
   validates :name, length: { minimum: 1 }
+  validates :style, presence: true
 
   # def average_rating
   #    return self.ratings.average(:score)

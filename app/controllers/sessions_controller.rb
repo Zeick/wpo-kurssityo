@@ -3,6 +3,11 @@ class SessionsController < ApplicationController
 		# Luo kirjautumissivun
 	end
 
+# Create-metodiin tarvittava muutos Rails 5.1:tä varten?
+# DEPRECATION WARNING: `redirect_to :back` is deprecated and will be removed from Rails 5.1.
+# Please use `redirect_back(fallback_location: fallback_location)` where `fallback_location` represents
+# the location to use if the request has no HTTP referer information.
+
 	def create
 		# Hakee käyttäjätunnusta vastaavan käyttäjän tietokannasta
 		user = User.find_by username: params[:username]

@@ -10,4 +10,13 @@ class User < ActiveRecord::Base
 	has_many :beers, through: :ratings
 	has_many :memberships, dependent: :destroy
 	has_many :beer_clubs, through: :memberships
+
+	def favorite_beer
+		return nil if ratings.empty? # Palautetaan nil jos ei ole arvosteluja
+#		ratings.first.beer # Palautetaan ensimmäiseen arvosteluun liittyvä olut.
+#		ratings.sort_by{ |r| r.score }.last.beer # Alemman pitkä muoto
+#		ratings.sort_by(&:score).last.beer # Vanha versio alemmasta
+		ratings.order(score: :desc).limit(1).first.beer
+	end
+	
 end

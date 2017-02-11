@@ -4,7 +4,8 @@
 <p><% if @user.ratings.empty? %>
   No ratings.
   <% else %>
-  Has <%= pluralize(@user.ratings.count,'rating') %>, average <%= @user.average_rating.round(2) %>.
+  <p>Has <%= pluralize(@user.ratings.count,'rating') %>, average <%= @user.average_rating.round(2) %>.</p>
+  <p>Favorite beer: <%= @user.favorite_beer %></p>
   <% end %>
 </p>
 <p><% if @user.beer_clubs.empty? %>
