@@ -1,10 +1,14 @@
 language: ruby
-
 rvm:
- - 2.4.0
-
+- 2.4.0
+- 2.2.4
+bundler_args: --jobs=2
 script:
- - export RAILS_ENV=test
- - bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+script:
+  - bundle exec rake db:setup
+  - bundle exec rake spec
+cache: bundler
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
