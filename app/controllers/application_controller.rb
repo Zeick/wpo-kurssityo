@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
 	@current_user ||= User.find(session[:user_id]) if session[:user_id]
     rescue ActiveRecord::RecordNotFound
   end
+
+  def ensure_that_signed_in
+    redirect_to signin_path, notice:'You should be signed in.' if current_user.nil?
+  end
 end

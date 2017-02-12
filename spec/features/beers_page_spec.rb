@@ -4,10 +4,12 @@ include Helpers
 describe "Beers-webpage" do
     before :each do
         FactoryGirl.create :brewery
+        FactoryGirl.create :user
     end
 
 
     it "creates a beer with non-empty name" do
+        sign_in(username:"Pekka", password:"Foobar1")
         visit new_beer_path
         fill_in('beer_name', with:'Muumi')
         expect{
@@ -16,6 +18,7 @@ describe "Beers-webpage" do
     end
 
     it "refuses to create a beer with empty name" do
+        sign_in(username:"Pekka", password:"Foobar1")
         visit new_beer_path
         click_button "Create Beer"
         expect(Beer.count).to eq(0)
