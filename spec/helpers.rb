@@ -6,15 +6,15 @@ module Helpers
         click_button('Log in')
     end
 
-    def create_beers_with_ratings(user, *scores)
-        scores.each do |score|
-            create_beer_with_rating(user,score)
-        end
-    end
-
-    def create_beer_with_rating(user,score)
-        beer = FactoryGirl.create(:beer)
+    def create_beer_with_rating(brewery, style, user, score)
+        beer = FactoryGirl.create(:beer, brewery: brewery, style: style)
         FactoryGirl.create(:rating, score:score, beer:beer, user:user)
         beer
+    end
+
+    def create_beers_with_ratings(brewery, style, user, *scores)
+        scores.each do |score|
+            create_beer_with_rating(brewery, style, user, score)
+        end
     end
 end

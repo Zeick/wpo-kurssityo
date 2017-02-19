@@ -27,7 +27,7 @@ describe "Beers-webpage" do
 
     it "shows the amount of beers" do
         user = User.create username:"Pekka", password:"Pikachu25", password_confirmation:"Pikachu25"
-        create_beers_with_ratings(user, 10, 20, 15, 7, 9)
+        create_beers_with_ratings(FactoryGirl.create(:brewery), "helles",user, 10, 20, 15, 7, 9)
         visit beers_path
         expect(page).to have_content 'Number of beers: 5'
     end

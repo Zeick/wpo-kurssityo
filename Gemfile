@@ -46,6 +46,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # LISÄYKSET
+
+gem 'httparty'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-rails'
@@ -65,6 +68,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 ruby '2.4.0'

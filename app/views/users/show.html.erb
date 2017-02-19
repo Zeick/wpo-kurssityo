@@ -6,6 +6,8 @@
   <% else %>
   <p>Has <%= pluralize(@user.ratings.count,'rating') %>, average <%= @user.average_rating.round(2) %>.</p>
   <p>Favorite beer: <%= @user.favorite_beer %></p>
+  <p> Favorite brewery: <%= @user.favorite_brewery.name %> </p>
+  <p> Favorite style: <%= @user.favorite_style %> </p>
   <% end %>
 </p>
 <p><% if @user.beer_clubs.empty? %>

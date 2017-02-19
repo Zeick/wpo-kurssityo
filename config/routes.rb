@@ -5,15 +5,22 @@ Rails.application.routes.draw do
   resources :beers
   resources :breweries
   resource :session, only: [:new, :create, :destroy]
+  resources :ratings, only: [:index, :new, :create, :destroy]
+  resources :places, only: [:index, :show]
+  # Ylläoleva generoi samat polut kuin seuraavat kaksi
+  # get 'places', to:'places#index'
+  # get 'places/:id', to:'places#show'
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'breweries#index'
   get 'kaikki_bisset', to: 'beers#index'
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
+#  get 'places', to: 'places#index'
+  post 'places', to: 'places#search'
 #  get 'ratings', to: 'ratings#index'
 #  get 'ratings/new', to: 'ratings#new'
 #  post 'ratings', to:'ratings#create'
-  resources :ratings, only: [:index, :new, :create, :destroy]
 end
 

@@ -2,11 +2,27 @@ require 'rails_helper'
 include Helpers
 
 describe "User" do
-    before :each do
-        FactoryGirl.create :user
-    end
+    let!(:user) { FactoryGirl.create :user }
     
     describe "who has signed up" do
+        it "favorite style is shown at user page" do
+          create_beers_with_ratings(FactoryGirl.create(:brewery), "helles", user, 7, 9)
+          create_beers_with_ratings(FactoryGirl.create(:brewery, name: "Schlenkerla"), "bock", user, 10)
+          user2 = FactoryGirl.create(:user, username: "Brian")
+          create_beers_with_ratings(FactoryGirl.create(:brewery), "helles", user2, 50)
+          visit user_path(user.id)
+          expect(page).to have_content "Favorite style: bock"  
+        end 
+
+        it "favorite brewery is shown at user page" do
+          create_beers_with_ratings(FactoryGirl.create(:brewery), "helles", user, 7, 9)
+          create_beers_with_ratings(FactoryGirl.create(:brewery, name: "Schlenkerla"), "bock", user, 10)
+          user2 = FactoryGirl.create(:user, username: "Brian")
+          create_beers_with_ratings(FactoryGirl.create(:brewery), "helles", user2, 50)
+          visit user_path(user.id)
+          expect(page).to have_content "Favorite brewery: Schlenkerla"  
+        end 
+
         it "can sign in with right credentials" do
             sign_in(username:"Pekka", password:"Foobar1")
             expect(page).to have_content 'Welcome back!'
@@ -20,11 +36,9 @@ describe "User" do
         end
 
         it "has only his or her ratings on his or her user page" do
-            user = User.create username:"Ville", password:"Pikachu25", password_confirmation:"Pikachu25"
             user2 = User.create username:"Ash Ketchum", password:"Bulbasaur1", password_confirmation:"Bulbasaur1"
-#            sign_in(username:"Ville", password:"Pikachu25")
-            create_beers_with_ratings(user, 10, 20, 15, 7, 9)
-            create_beers_with_ratings(user2, 30, 14, 12)
+            create_beers_with_ratings(FactoryGirl.create(:brewery), "helles",user, 10, 20, 15, 7, 9)
+            create_beers_with_ratings(FactoryGirl.create(:brewery), "helles",user2, 30, 14, 12)
             visit user_path(user)
             expect(page).to have_content 'Has 5 ratings'
             expect(page).to have_content 'anonymous 10'
@@ -38,15 +52,14 @@ describe "User" do
         end
         
         it "when destroys his or her rating, the rating is deleted from system" do
-            user = User.create username:"Ville", password:"Pikachu25", password_confirmation:"Pikachu25"
-            sign_in(username:"Ville", password:"Pikachu25")
-            create_beers_with_ratings(user, 10, 20, 15, 7, 9)
+            sign_in(username:"Pekka", password:"Foobar1")
+            create_beers_with_ratings(FactoryGirl.create(:brewery, name: "Schlenkerla"), "helles",user, 10, 20, 15, 7, 9)
             visit user_path(user)
             expect(Rating.count).to eq(5)
             # Huom! Navigaatiopalkissa on 9 linkkiä ja Ruby-taulukkojen numerointi alkaa nollasta.
             # Tämä poistaa toisen arvostelun (indeksi 10), ensimmäinen arvostelu on indeksissä 9.
             # Jos navigaatiopalkkiin asetetaan lisää linkkejä, on indeksiä kasvatettava vastaavasti.
-            page.all('a')[10].click
+            page.all('a')[11].click
             expect(page).to have_content 'anonymous 10'
             expect(page).to have_no_content 'anonymous 20'
             expect(page).to have_content 'anonymous 15'

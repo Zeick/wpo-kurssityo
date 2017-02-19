@@ -28,6 +28,7 @@ class RatingsController < ApplicationController
   def destroy
     rating = Rating.find(params[:id])
     rating.delete if current_user == rating.user # Poistetaan vain jos poistaja on sama kuin arvostelija
-    redirect_to :back
+#    redirect_to :back
+    redirect_back(fallback_location: ratings_path)
   end
 end

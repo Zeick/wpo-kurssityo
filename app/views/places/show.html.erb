@@ -1,0 +1,32 @@
+<head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+</head>
+<body>
+<h1><%= @place.name %></h1>
+<p><%= @place.street %></p>
+<p><%= @place.zip %> <%= @place.city %>, <%= @place.country %></p>
+<h3>Location on Google map (neat, eh?)</h3>
+    <p>Latitude: <%= @coordinates["lat"] %>, longitude: <%= @coordinates["lng"] %></p>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var mapCoordinates = {lat: <%= @coordinates["lat"] %>, lng: <%= @coordinates["lng"] %>}
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: mapCoordinates
+        });
+        var marker = new google.maps.Marker({
+          position: mapCoordinates,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdNnz5k7zq1WE7WKzosW0SJfI189GuTE4&callback=initMap">
+    </script>
+</body>

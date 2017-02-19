@@ -24,7 +24,7 @@ describe "Rating" do
     end
 
     it "shows the amount of ratings" do
-        create_beers_with_ratings(user, 10, 20, 15, 7, 9)
+        create_beers_with_ratings(FactoryGirl.create(:brewery), "helles",user, 10, 20, 15, 7, 9)
         visit ratings_path
         expect(page).to have_content 'Number of ratings: 5'
     end
