@@ -24,7 +24,10 @@
     Score: <%= f.number_field :score %>
     <%= f.submit %>
   <% end %>
+<!--
   <%= link_to 'Edit', edit_beer_path(@beer) %> |
-  <%= link_to 'Destory', @beer, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to 'Destory', @beer, method: :delete, data: { confirm: 'Are you sure?' } %> | -->
 <% end %>
-<%= link_to 'Back', beers_path %>
+<br>
+<%= edit_and_destroy_buttons(@beer) %>
+<%= link_to 'Back', beers_path, class:"btn btn-info" %>

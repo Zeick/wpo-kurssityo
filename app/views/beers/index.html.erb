@@ -3,7 +3,7 @@
 <h1>Beers</h1>
 <p>Number of beers: <%= @beers.count %></p>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -19,13 +19,20 @@
         <td><%= link_to beer.name, beer %></td>
         <td><%= beer.style %></td>
         <td><%= link_to beer.brewery.name, beer.brewery %></td>
-        <td><%= link_to 'Edit', edit_beer_path(beer) if current_user %></td>
-        <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td>
+        <% if current_user %>
+          <td><%= link_to 'Edit', edit_beer_path(beer), class:"label label-info" %>
+          <% if current_user.admin %>
+            <%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' }, class:"label label-warning"  %>
+          <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-<%= link_to 'New Beer', new_beer_path if current_user %><br>
-<%= link_to 'List of breweries', breweries_path %>
+<% if current_user %>
+  <%= link_to 'New Beer', new_beer_path, class:"btn btn-info"%>
+<% end %>
+<%= link_to 'List of breweries', breweries_path, class:"btn btn-info" %>

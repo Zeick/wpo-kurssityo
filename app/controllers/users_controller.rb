@@ -64,6 +64,13 @@ def update
     end
   end
 
+  def toggle_ban
+    user = User.find(params[:id])
+    user.update_attribute :banned, (not user.banned)
+    new_status = user.banned? ? "Banned" : "Unbanned"
+    redirect_to :back, notice:"User #{user.username} ban status changed to #{new_status}."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -72,6 +79,6 @@ def update
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :password, :password_confirmation)
+      params.require(:user).permit(:username, :password, :password_confirmation, :admin, :banned)
     end
 end

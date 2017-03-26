@@ -2,7 +2,7 @@
 
 <h1>Beer Clubs</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -15,17 +15,22 @@
   <tbody>
     <% @beer_clubs.each do |beer_club| %>
       <tr>
-        <td><%= beer_club.name %></td>
+        <td><%= link_to beer_club.name, beer_club %></td>
         <td><%= beer_club.founded %></td>
         <td><%= beer_club.city %></td>
-        <td><%= link_to 'Show', beer_club %></td>
-        <td><%= link_to 'Edit', edit_beer_club_path(beer_club) if current_user %></td>
-        <td><%= link_to 'Destroy', beer_club, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td>
+        <% if current_user %>
+          <td><%= link_to 'Edit', edit_beer_club_path(beer_club), class:"label label-info" %>
+          <% if current_user.admin %>
+            <%= link_to 'Destroy', beer_club, method: :delete, data: { confirm: 'Are you sure?' }, class:"label label-warning"  %>
+          <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Beer Club', new_beer_club_path if current_user %>
+<% if current_user %>
+<%= link_to 'New Beer Club', new_beer_club_path, class:"btn btn-info"  %>
+<% end %>

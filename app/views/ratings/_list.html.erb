@@ -1,0 +1,43 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Average</th>
+        <% if (tops.first.methods.include? :username) %>
+            <th>Ratings</td>
+            <th>Favorite beer</th>
+            <th>Favorite style</th>
+            <th>Favorite brewery</th>
+        <% end %>
+            
+    </tr>
+    </thead>
+    <tbody>
+    <% tops.each do |top| %>
+        <tr>
+            <!-- Breweries/Beers: name määritelty. -->
+            <!-- Users: username määritelty. -->
+            <% if (top.methods.include? :name) %>
+                <td><%= link_to top.name, top %></td>
+                <td><%= top.average_rating %></td>
+            <% else %>
+                <td><%= link_to top.username, top %></td>
+                <td><%= top.average_rating %></td>
+                <td><%= top.ratings.count %></td>
+                <td>
+                <% if top.favorite_beer %>
+                    <%= link_to top.favorite_beer.name, top.favorite_beer %>
+                <% end %>
+                </td>
+                <td><%= top.favorite_style %></td>
+                <td>
+                <% if top.favorite_brewery %>
+                    <%= link_to top.favorite_brewery.name, top.favorite_brewery %>
+                <% end %>
+                </td>
+            <% end %>
+            <td></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>

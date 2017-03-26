@@ -161,6 +161,10 @@
         14,
         null,
         null,
+        1,
+        0,
+        null,
+        null,
         null
       ],
       "/Users/tjkarkka/Documents/Ohjelmointi/Ruby/app/controllers/sessions_controller.rb": [
@@ -198,7 +202,7 @@
         1,
         null,
         null,
-        197,
+        193,
         null,
         null,
         null,
@@ -321,6 +325,8 @@
         null,
         null,
         1,
+        0,
+        0,
         null,
         null,
         null,
@@ -479,6 +485,13 @@
       "/Users/tjkarkka/Documents/Ohjelmointi/Ruby/lib/beermapping_api.rb": [
         1,
         1,
+        2,
+        2,
+        0,
+        null,
+        null,
+        null,
+        1,
         0,
         0,
         null,
@@ -516,23 +529,31 @@
         0,
         0,
         null,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null,
         null
       ],
       "/Users/tjkarkka/Documents/Ohjelmointi/Ruby/app/models/place.rb": [
         1,
         1,
         null,
-        2,
+        0,
         null,
         null,
-        1,
-        0,
-        0,
+        null,
+        null,
+        null,
         null,
         null
       ],
       "/Users/tjkarkka/Documents/Ohjelmointi/Ruby/app/controllers/places_controller.rb": [
         1,
+        null,
+        1,
         1,
         null,
         null,
@@ -547,7 +568,10 @@
         1,
         null,
         2,
-        2,
+        0,
+        0,
+        0,
+        0,
         null,
         null,
         null
@@ -601,6 +625,9 @@
         0
       ],
       "/Users/tjkarkka/Documents/Ohjelmointi/Ruby/app/controllers/beer_clubs_controller.rb": [
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -777,6 +804,6 @@
         0
       ]
     },
-    "timestamp": 1487501691
+    "timestamp": 1487529496
   }
 }

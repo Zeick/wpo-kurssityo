@@ -11,6 +11,13 @@ class User < ActiveRecord::Base
 	has_many :memberships, dependent: :destroy
 	has_many :beer_clubs, through: :memberships
 
+# Palauttaa listalta käyttäjät joilla on eniten arvosteluja
+  def self.top(n)
+    sorted_by_rating_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count||0) }
+    return sorted_by_rating_in_desc_order.take(n)   
+  end
+
+
 	def favorite_beer
 		return nil if ratings.empty? # Palautetaan nil jos ei ole arvosteluja
 #		ratings.first.beer # Palautetaan ensimmäiseen arvosteluun liittyvä olut.

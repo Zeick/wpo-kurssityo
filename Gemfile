@@ -48,6 +48,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # LISÄYKSET
 
 gem 'httparty'
+gem 'bootstrap-sass'
+
+group :development do
+  gem 'rails_layout'
+end
 
 group :development, :test do
   gem 'byebug'
