@@ -1,5 +1,6 @@
 <h1>Sign in</h1>
-<p id="notice"><%= notice %></p>
+<a href="auth/github"><button type="button" class="btn btn-info">Log in with GitHub</button></a>
+<br><br>
 <%= form_tag session_path do %>
 	Username: <%= text_field_tag :username, params[:username] %>
 	Password: <%= password_field_tag :password, params[:password] %>

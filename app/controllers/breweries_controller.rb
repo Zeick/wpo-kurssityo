@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   # before_action :authenticate, only: [:destroy]
   # GET /breweries
   # GET /breweries.json
@@ -8,14 +8,24 @@ class BreweriesController < ApplicationController
     @breweries = Brewery.all
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
-#    @top_breweries = Brewery.top 3
-#    render :panimot
+    order = params[:order] || 'name'
+    @active_breweries = case order
+      when 'name' then @active_breweries.sort_by{ |b| b.name }
+      when 'year' then @active_breweries.sort_by{ |b| b.year }
+    end
+    @retired_breweries = case order
+      when 'name' then @retired_breweries.sort_by{ |b| b.name }
+      when 'year' then @retired_breweries.sort_by{ |b| b.year }
+    end
   end
 
   # GET /breweries/1
   # GET /breweries/1.json
   def show
   end
+
+  def list
+    end
 
   # GET /breweries/new
   def new

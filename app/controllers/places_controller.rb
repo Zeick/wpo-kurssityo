@@ -10,6 +10,9 @@ class PlacesController < ApplicationController
     end
 
     def search
+#        if !params[:city]
+ #           redirect_to places_path, notice: "Cities have names, you know."
+  #      else
         @places = BeermappingApi.places_in(params[:city])
         if @places.empty?
             redirect_to places_path, notice: "No locations in #{params[:city]}"
@@ -20,5 +23,6 @@ class PlacesController < ApplicationController
             session[:last_city] = params[:city]
             render :index
         end
+#        end
     end
 end

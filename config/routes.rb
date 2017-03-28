@@ -26,5 +26,8 @@ Rails.application.routes.draw do
 #  get 'ratings', to: 'ratings#index'
 #  get 'ratings/new', to: 'ratings#new'
 #  post 'ratings', to:'ratings#create'
+  get 'beerlist', to: 'beers#list'
+  get 'brewerylist', to: 'breweries#list'
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
 end
 
