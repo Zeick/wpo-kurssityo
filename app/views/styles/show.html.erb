@@ -1,0 +1,10 @@
+<h1>
+  <%= @style.name %>
+</h1>
+
+<p>
+  <%= @style.description %>
+</p>
+
+<%= link_to 'Edit', edit_style_path(@style), class:"btn btn-info" %>
+<%= link_to 'Back', styles_path, class:"btn btn-info" %>

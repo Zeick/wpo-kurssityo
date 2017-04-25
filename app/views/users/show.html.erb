@@ -25,7 +25,7 @@
   No ratings.
   <% else %>
   <p>Has <%= pluralize(@user.ratings.count,'rating') %>, average <%= @user.average_rating.round(2) %>.</p>
-  <p>Favorite beer: <%= link_to @user.favorite_beer, @user.favorite_beer %></p>
+  <p>Favorite beer: <%= link_to @user.favorite_beer.name, @user.favorite_beer %>, <%= link_to @user.favorite_beer.brewery.name, @user.favorite_beer.brewery %></p>
   <p> Favorite brewery: <%= link_to @user.favorite_brewery.name, @user.favorite_brewery %> </p>
   <p> Favorite style: <%= @user.favorite_style %> </p>
   <% end %>
@@ -40,26 +40,43 @@
 
 	<h2>Ratings</h2>
 <% end %>
-<ul>
-  <% @user.ratings.each do |rating| %>
-    <li> <%= rating %>
+<table class="table table-hover">
+  <tbody>
+    <% @user.ratings.each do |rating| %>
+    <tr>
+      <td><%= rating %></td>
     	<% if @user == current_user %>
-	    	<%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %> 
+        <td>
+	    	  <%= link_to 'Delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class:"label label-danger" %> 
+        </td>
 	    <% end %>
-    </li>
+    </tr>
   <% end %>
-</ul>
+  </tbody>
+</table>
+
 <% if !(@user.beer_clubs.empty?) %>
-	<h2>Memberships</h2>
+  <h2>Memberships</h2>
 <% end %>
-<ul>
- 	<% @user.beer_clubs.each do |bc| %>
-    	<li> <%= link_to bc, bc %></li>
-	<% end %>
-</ul>
+<table class="table table-hover">
+  <tbody>
+ 	  <% @user.memberships.each do |ms| %>
+      <tr>
+    	  <td> <%= link_to ms.beer_club.name, ms.beer_club %></td>
+        <% if current_user %>
+          <% if @user == current_user || current_user.admin %>
+            <td>
+            <%= link_to 'End membership', ms, method: :delete, data: { confirm: 'Are you sure?' } , class:"label label-danger"%>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
+	  <% end %>
+  </tbody>
+</table>
 
 <% if @user == current_user %>
 	<%= link_to 'Edit', edit_user_path(@user), class:"btn btn-info" %> 
-	<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %> 
+	<%= link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %> 
 <% end %>
 <%= link_to 'Back', users_path, class:"btn btn-info" %>

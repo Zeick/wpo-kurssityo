@@ -19,10 +19,10 @@
             <!-- Users: username määritelty. -->
             <% if (top.methods.include? :name) %>
                 <td><%= link_to top.name, top %></td>
-                <td><%= top.average_rating %></td>
+                <td><%= top.average_rating.round(2) %></td>
             <% else %>
                 <td><%= link_to top.username, top %></td>
-                <td><%= top.average_rating %></td>
+                <td><%= top.average_rating.round(2) %></td>
                 <td><%= top.ratings.count %></td>
                 <td>
                 <% if top.favorite_beer %>

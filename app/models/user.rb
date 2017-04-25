@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   def favorite_style
     return nil if ratings.empty? 
     
-    ratings_of_styles = ratings.group_by { |r| r.beer.style }
+    ratings_of_styles = ratings.group_by { |r| r.beer.style.name }
     averages_of_styles = []
     ratings_of_styles.each do |style, ratings|
       averages_of_styles << {
@@ -54,8 +54,11 @@ class User < ActiveRecord::Base
     averages_of_styles.sort_by{ |b| -b[:rating] }.first[:style]
   end    
 	
-def to_s
+  def to_s
     return "#{self.username}"
   end
 
+  def is_member_of?(beer_club)
+    beer_clubs.include? beer_club
+  end
 end

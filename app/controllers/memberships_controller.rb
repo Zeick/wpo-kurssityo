@@ -69,7 +69,7 @@ def create
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to current_user, notice: 'Membership in #{@membership.beer_club} ended.' }
+      format.html { redirect_to current_user, notice: "Membership in #{@membership.beer_club} ended." }
       format.json { head :no_content }
     end
   end
