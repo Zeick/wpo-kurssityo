@@ -31,10 +31,16 @@
       <% @recent_ratings.each do |r| %>
       <tr>
         <td><%= r %></td>
-        <td><%= link_to r.user.username, r.user %></td>
-        <% if r.user == current_user %>
-          <td><%= link_to 'Delete', r, method: :delete, data: { confirm: 'Are you sure?' }, class:"label label-danger" %>
-          </td>
+        <td>
+          <% if r.user  %>
+            <%= link_to r.user.username, r.user %>
+          <% end %>
+        </td>
+        <% if r.user %>
+          <% if r.user == current_user %>
+            <td><%= link_to 'Delete', r, method: :delete, data: { confirm: 'Are you sure?' }, class:"label label-danger" %>
+            </td>
+          <% end %>
         <% end %>
         </tr>
       <% end %>
