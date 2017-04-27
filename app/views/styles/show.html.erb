@@ -5,6 +5,21 @@
 <p>
   <%= @style.description %>
 </p>
+<% if !(@style.beers.empty?) %>
+  <h3>Beers</h3>
+  <p><%= @style.beers.count %> beers of this style.</p>
+  <table class="table table-hover">
+    <tbody>
+      <% @style.beers.each do |b| %>
+        <tr>
+          <td>
+          <%= link_to b.name, b %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <%= link_to 'Edit', edit_style_path(@style), class:"btn btn-info" %>
 <%= link_to 'Back', styles_path, class:"btn btn-info" %>
